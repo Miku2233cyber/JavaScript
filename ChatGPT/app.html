@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Page</title>
+    <style>
+      /* CSS styles for the page */
+      body {
+        background-color: #f2f2f2;
+      }
+      .login-box {
+        width: 300px;
+        margin: auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px #999;
+      }
+      .login-box h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .login-box input[type="text"],
+      .login-box input[type="password"] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .login-box input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .login-box input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-box">
+      <h1>Login</h1>
+      <form>
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" />
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" />
+        <input type="submit" value="Login" />
+      </form>
+    </div>
+    <script>
+      // JavaScript code for form validation and submission
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const username = form.username.value;
+        const password = form.password.value;
+        if (!username || !password) {
+          alert("Please enter a username and password.");
+        } else {
+          // Code to submit the form, such as sending a request to a server
+          const form = document.querySelector("form");
+          form.addEventListener("submit", (event) => {
+            event.preventDefault();
+            const username = form.username.value;
+            const password = form.password.value;
+            if (!username || !password) {
+              alert("Please enter a username and password.");
+            } else {
+              // Create a JavaScript object with the form data
+              const data = { username, password };
+
+              // Use the fetch API to send a POST request to the server
+              fetch("/login", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: { "Content-Type": "application/json" },
+              })
+                .then((response) => {
+                  if (response.ok) {
+                    // The login was successful
+                    alert("Login successful!");
+                  } else {
+                    // The login failed
+                    alert("Incorrect username or password.");
+                  }
+                })
+                .catch((error) => {
+                  // There was an error with the request
+                  console.error("Error:", error);
+                  alert("An error occurred. Please try again later.");
+                });
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
